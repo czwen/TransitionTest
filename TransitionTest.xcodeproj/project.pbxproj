@@ -26,6 +26,7 @@
 		948FF555196E8F9C00A8EA1C /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 948FF554196E8F9C00A8EA1C /* SecondViewController.m */; };
 		948FF55B196E92EA00A8EA1C /* TransitionFromFirstToSecond.m in Sources */ = {isa = PBXBuildFile; fileRef = 948FF55A196E92EA00A8EA1C /* TransitionFromFirstToSecond.m */; };
 		948FF55E196E92F900A8EA1C /* TransitionFromSecondToFirst.m in Sources */ = {isa = PBXBuildFile; fileRef = 948FF55D196E92F900A8EA1C /* TransitionFromSecondToFirst.m */; };
+		94BE415C196FCE4B00331ED0 /* ColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BE415B196FCE4B00331ED0 /* ColorViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,8 @@
 		948FF55A196E92EA00A8EA1C /* TransitionFromFirstToSecond.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionFromFirstToSecond.m; sourceTree = "<group>"; };
 		948FF55C196E92F900A8EA1C /* TransitionFromSecondToFirst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionFromSecondToFirst.h; sourceTree = "<group>"; };
 		948FF55D196E92F900A8EA1C /* TransitionFromSecondToFirst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionFromSecondToFirst.m; sourceTree = "<group>"; };
+		94BE415A196FCE4B00331ED0 /* ColorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorViewController.h; sourceTree = "<group>"; };
+		94BE415B196FCE4B00331ED0 /* ColorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,14 +138,16 @@
 				948FF531196E801B00A8EA1C /* ViewController.m */,
 				948FF553196E8F9C00A8EA1C /* SecondViewController.h */,
 				948FF554196E8F9C00A8EA1C /* SecondViewController.m */,
+				94BE415A196FCE4B00331ED0 /* ColorViewController.h */,
+				94BE415B196FCE4B00331ED0 /* ColorViewController.m */,
 				948FF550196E847C00A8EA1C /* UIColor+RandomColor.h */,
 				948FF551196E847C00A8EA1C /* UIColor+RandomColor.m */,
-				948FF533196E801B00A8EA1C /* Images.xcassets */,
-				948FF522196E801B00A8EA1C /* Supporting Files */,
 				948FF559196E92EA00A8EA1C /* TransitionFromFirstToSecond.h */,
 				948FF55A196E92EA00A8EA1C /* TransitionFromFirstToSecond.m */,
 				948FF55C196E92F900A8EA1C /* TransitionFromSecondToFirst.h */,
 				948FF55D196E92F900A8EA1C /* TransitionFromSecondToFirst.m */,
+				948FF533196E801B00A8EA1C /* Images.xcassets */,
+				948FF522196E801B00A8EA1C /* Supporting Files */,
 			);
 			path = TransitionTest;
 			sourceTree = "<group>";
@@ -279,6 +284,7 @@
 				948FF55E196E92F900A8EA1C /* TransitionFromSecondToFirst.m in Sources */,
 				948FF532196E801B00A8EA1C /* ViewController.m in Sources */,
 				948FF52C196E801B00A8EA1C /* AppDelegate.m in Sources */,
+				94BE415C196FCE4B00331ED0 /* ColorViewController.m in Sources */,
 				948FF528196E801B00A8EA1C /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
