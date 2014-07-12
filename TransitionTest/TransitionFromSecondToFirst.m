@@ -20,7 +20,7 @@
     SecondViewController *fromVC = (SecondViewController*)[transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     ViewController *toVC = (ViewController*)[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     
-    UICollectionViewCell *selectedCell = [toVC.collectionView cellForItemAtIndexPath:fromVC.selectedCellIndexPath];
+    UICollectionViewCell *selectedCell = [toVC.collectionView cellForItemAtIndexPath:fromVC.currentCellIndexPath];
     
     UIView *containerView = [transitionContext containerView];
     

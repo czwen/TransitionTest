@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		94743A0B196F79390070B753 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94743A0A196F79390070B753 /* QuartzCore.framework */; };
+		948C0A441971068D00BE482F /* ColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 948C0A431971068D00BE482F /* ColorViewController.m */; };
+		948C0A471971126700BE482F /* ModelController.m in Sources */ = {isa = PBXBuildFile; fileRef = 948C0A461971126700BE482F /* ModelController.m */; };
 		948FF51C196E801B00A8EA1C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 948FF51B196E801B00A8EA1C /* Foundation.framework */; };
 		948FF51E196E801B00A8EA1C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 948FF51D196E801B00A8EA1C /* CoreGraphics.framework */; };
 		948FF520196E801B00A8EA1C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 948FF51F196E801B00A8EA1C /* UIKit.framework */; };
@@ -26,7 +28,6 @@
 		948FF555196E8F9C00A8EA1C /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 948FF554196E8F9C00A8EA1C /* SecondViewController.m */; };
 		948FF55B196E92EA00A8EA1C /* TransitionFromFirstToSecond.m in Sources */ = {isa = PBXBuildFile; fileRef = 948FF55A196E92EA00A8EA1C /* TransitionFromFirstToSecond.m */; };
 		948FF55E196E92F900A8EA1C /* TransitionFromSecondToFirst.m in Sources */ = {isa = PBXBuildFile; fileRef = 948FF55D196E92F900A8EA1C /* TransitionFromSecondToFirst.m */; };
-		94BE415C196FCE4B00331ED0 /* ColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BE415B196FCE4B00331ED0 /* ColorViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +42,10 @@
 
 /* Begin PBXFileReference section */
 		94743A0A196F79390070B753 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		948C0A421971068D00BE482F /* ColorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorViewController.h; sourceTree = "<group>"; };
+		948C0A431971068D00BE482F /* ColorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorViewController.m; sourceTree = "<group>"; };
+		948C0A451971126700BE482F /* ModelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelController.h; sourceTree = "<group>"; };
+		948C0A461971126700BE482F /* ModelController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModelController.m; sourceTree = "<group>"; };
 		948FF518196E801B00A8EA1C /* TransitionTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TransitionTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		948FF51B196E801B00A8EA1C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		948FF51D196E801B00A8EA1C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -68,8 +73,6 @@
 		948FF55A196E92EA00A8EA1C /* TransitionFromFirstToSecond.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionFromFirstToSecond.m; sourceTree = "<group>"; };
 		948FF55C196E92F900A8EA1C /* TransitionFromSecondToFirst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionFromSecondToFirst.h; sourceTree = "<group>"; };
 		948FF55D196E92F900A8EA1C /* TransitionFromSecondToFirst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionFromSecondToFirst.m; sourceTree = "<group>"; };
-		94BE415A196FCE4B00331ED0 /* ColorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorViewController.h; sourceTree = "<group>"; };
-		94BE415B196FCE4B00331ED0 /* ColorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,8 +141,8 @@
 				948FF531196E801B00A8EA1C /* ViewController.m */,
 				948FF553196E8F9C00A8EA1C /* SecondViewController.h */,
 				948FF554196E8F9C00A8EA1C /* SecondViewController.m */,
-				94BE415A196FCE4B00331ED0 /* ColorViewController.h */,
-				94BE415B196FCE4B00331ED0 /* ColorViewController.m */,
+				948C0A421971068D00BE482F /* ColorViewController.h */,
+				948C0A431971068D00BE482F /* ColorViewController.m */,
 				948FF550196E847C00A8EA1C /* UIColor+RandomColor.h */,
 				948FF551196E847C00A8EA1C /* UIColor+RandomColor.m */,
 				948FF559196E92EA00A8EA1C /* TransitionFromFirstToSecond.h */,
@@ -148,6 +151,8 @@
 				948FF55D196E92F900A8EA1C /* TransitionFromSecondToFirst.m */,
 				948FF533196E801B00A8EA1C /* Images.xcassets */,
 				948FF522196E801B00A8EA1C /* Supporting Files */,
+				948C0A451971126700BE482F /* ModelController.h */,
+				948C0A461971126700BE482F /* ModelController.m */,
 			);
 			path = TransitionTest;
 			sourceTree = "<group>";
@@ -284,7 +289,8 @@
 				948FF55E196E92F900A8EA1C /* TransitionFromSecondToFirst.m in Sources */,
 				948FF532196E801B00A8EA1C /* ViewController.m in Sources */,
 				948FF52C196E801B00A8EA1C /* AppDelegate.m in Sources */,
-				94BE415C196FCE4B00331ED0 /* ColorViewController.m in Sources */,
+				948C0A471971126700BE482F /* ModelController.m in Sources */,
+				948C0A441971068D00BE482F /* ColorViewController.m in Sources */,
 				948FF528196E801B00A8EA1C /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

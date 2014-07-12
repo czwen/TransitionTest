@@ -70,7 +70,7 @@
 {
     SecondViewController *secondVC = [[SecondViewController alloc]init];
     //[self.navigationController popToViewController:secondVC animated:YES];
-    secondVC.selectedCellIndexPath = indexPath;
+    secondVC.currentCellIndexPath = indexPath;
     secondVC.dataArray = self.colorArray;
     [self.navigationController pushViewController:secondVC animated:YES];
 }

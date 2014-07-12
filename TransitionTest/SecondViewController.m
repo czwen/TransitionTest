@@ -8,13 +8,14 @@
 
 #import "SecondViewController.h"
 
-@interface SecondViewController ()
-@property (nonatomic, strong) UIPercentDrivenInteractiveTransition *interactivePopTransition;
+@interface SecondViewController()
 
+@property (strong, nonatomic) ModelController *modelController;
 @end
 
-@implementation SecondViewController
 
+@implementation SecondViewController
+@synthesize modelController = _modelController;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -27,10 +28,33 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor whiteColor];
-    UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(didPan:)];
-    [self.view addGestureRecognizer:panGestureRecognizer];
+    self.colorViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
+    self.colorViewController.delegate = self;
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    self.modelController = [[ModelController alloc]initWith:self.dataArray];
+    ColorViewController *startingViewController = [self.modelController viewControllerAtIndex:self.currentCellIndexPath.row storyboard:storyboard];
+    startingViewController.view.backgroundColor = (UIColor*)self.dataArray[self.currentCellIndexPath.row];
+    NSArray *viewControllers = @[startingViewController];
+    [self.colorViewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+    
+    self.colorViewController.dataSource = self.modelController;
+    
+    [self addChildViewController:self.colorViewController];
+    [self.view addSubview:self.colorViewController.view];
+    
+    // Set the page view controller's bounds using an inset rect so that self's view is visible around the edges of the pages.
+    CGRect pageViewRect = self.view.bounds;
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        pageViewRect = CGRectInset(pageViewRect, 40.0, 40.0);
+    }
+    self.colorViewController.view.frame = pageViewRect;
+    
+    [self.colorViewController didMoveToParentViewController:self];
+    
+    
+    // Add the page view controller's gesture recognizers to the book view controller's view so that the gestures are started more easily.
+    self.view.gestureRecognizers = self.colorViewController.gestureRecognizers;
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -58,86 +82,68 @@
     }
     return nil;
 }
+#pragma mark - UIPageViewController Delegate
 
-// pan gestrue method
-- (void)didPan:(UIPanGestureRecognizer*)recognizer
+- (UIPageViewControllerSpineLocation)pageViewController:(UIPageViewController *)pageViewController spineLocationForInterfaceOrientation:(UIInterfaceOrientation)orientation
 {
-    CGFloat progress = [recognizer translationInView:self.view].x / (self.view.frame.size.width * 1.0);
-    //progress = MIN(1.0, MAX(0.0, progress));
-    NSLog(@"%f",progress);
-    
-    [self panState:recognizer.state progress:progress];
-}
-
-- (void)panState:(UIGestureRecognizerState)state progress:(CGFloat)progress
-{
-    [self panToRight];
-
-    switch (state) {
-        case UIGestureRecognizerStateBegan:
-            if (progress>0) {
-                //from left to right
-                self.interactivePopTransition = [UIPercentDrivenInteractiveTransition new];
-                [self panToRight];
-            }
-            if (progress<0) {
-                //from right to left
-                self.interactivePopTransition = [UIPercentDrivenInteractiveTransition new];
-                [self panToLeft];
-            }
-            break;
-        case UIGestureRecognizerStateChanged:
-            [self.interactivePopTransition updateInteractiveTransition:abs(progress)];
-            break;
-        case UIGestureRecognizerStateEnded:
-            [self.interactivePopTransition finishInteractiveTransition];
-            break;
-        default:
-            break;
-    }
-}
-
-- (void)panToLeft
-{
-    
-}
-
-- (void)panToRight
-{
-    NSLog(@"%@",self.selectedCellIndexPath);
-    //last color
-    UIColor *previousColor;
-    if (self.selectedCellIndexPath.row-1<0) {
-        NSLog(@"it's first object");
-    }else{
-        previousColor = (UIColor*)[self.dataArray objectAtIndex:self.selectedCellIndexPath.row-1];
+    if (UIInterfaceOrientationIsPortrait(orientation) || ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)) {
+        // In portrait orientation or on iPhone: Set the spine position to "min" and the page view controller's view controllers array to contain just one view controller. Setting the spine position to 'UIPageViewControllerSpineLocationMid' in landscape orientation sets the doubleSided property to YES, so set it to NO here.
+        
+        UIViewController *currentViewController = self.colorViewController.viewControllers[0];
+        NSArray *viewControllers = @[currentViewController];
+        [self.colorViewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
+        
+        self.colorViewController.doubleSided = NO;
+        return UIPageViewControllerSpineLocationMin;
     }
     
-    //current color view
-    UIView *currentView = [self.view snapshotViewAfterScreenUpdates:NO];
-    //previousColor color view
-    UIView *previousView = [self.view snapshotViewAfterScreenUpdates:NO];
-    previousView.backgroundColor = previousColor;
-    previousView.frame = CGRectMake(-currentView.frame.size.width, previousView.frame.origin.y, previousView.frame.size.width, previousView.frame.size.height);
-    //add subview
-    [self.view addSubview:previousView];
-    [self.view addSubview:currentView];
-    //config frame
-    CGRect currentViewFinalFrame= CGRectMake(currentView.frame.size.width*2, currentView.frame.origin.y, currentView.frame.size.width, currentView.frame.size.height);
-    CGRect previousViewFinalFrame = currentView.frame;
-    [UIView animateWithDuration:1
-                     animations:^{
-                         currentView.transform = CGAffineTransformMakeTranslation(currentViewFinalFrame.origin.x, currentViewFinalFrame.origin.y);
-                         previousView.transform = CGAffineTransformMakeTranslation(previousViewFinalFrame.origin.x,previousViewFinalFrame.origin.y);
-                     }
-                     completion:^(BOOL finished) {
-                         self.view.backgroundColor = previousColor;
-                         [currentView removeFromSuperview];
-                         [previousView removeFromSuperview];
-                         NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:self.selectedCellIndexPath.row-1 inSection:self.selectedCellIndexPath.section];
-                         self.selectedCellIndexPath = newIndexPath;
-                     }];
+    // In landscape orientation: Set set the spine location to "mid" and the page view controller's view controllers array to contain two view controllers. If the current page is even, set it to contain the current and next view controllers; if it is odd, set the array to contain the previous and current view controllers.
+    ColorViewController *currentViewController = self.colorViewController.viewControllers[self.currentCellIndexPath.row];
+    NSArray *viewControllers = nil;
+    
+    NSUInteger indexOfCurrentViewController = self.currentCellIndexPath.row;
+    if (indexOfCurrentViewController == 0 || indexOfCurrentViewController % 2 == 0) {
+        ColorViewController *nextViewController = [[ColorViewController alloc]init];
+        nextViewController.view.backgroundColor = (UIColor*)[self.dataArray objectAtIndex:indexOfCurrentViewController+1];
+        nextViewController.indexPath = [NSIndexPath indexPathForRow:self.currentCellIndexPath.row+1 inSection:self.currentCellIndexPath.section];
+        viewControllers = @[currentViewController, nextViewController];
+    } else {
+        ColorViewController *previousViewController = [[ColorViewController alloc]init];
+        previousViewController.view.backgroundColor = (UIColor*)[self.dataArray objectAtIndex:indexOfCurrentViewController-1];
+        previousViewController.indexPath = [NSIndexPath indexPathForRow:self.currentCellIndexPath.row-1 inSection:self.currentCellIndexPath.section];
+        viewControllers = @[previousViewController, currentViewController];
+    }
+    [self.colorViewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
+    
+    
+    return UIPageViewControllerSpineLocationMid;
 }
+
+- (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed
+{
+    if (finished&&completed) {
+        
+        ColorViewController *previousVC = (ColorViewController*)[previousViewControllers lastObject];
+        
+        ColorViewController *currentVC = (ColorViewController*)[self.colorViewController.viewControllers lastObject];
+        
+        if (currentVC.indexPath.row==previousVC.indexPath.row) {
+            NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:self.currentCellIndexPath.row-1 inSection:self.currentCellIndexPath.section];
+            self.currentCellIndexPath = newIndexPath;
+            self.view.backgroundColor = (UIColor*)self.dataArray[newIndexPath.row];
+        }
+        if (currentVC.indexPath.row<previousVC.indexPath.row) {
+            NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:self.currentCellIndexPath.row+1 inSection:self.currentCellIndexPath.section];
+            self.currentCellIndexPath = newIndexPath;
+            self.view.backgroundColor = (UIColor*)self.dataArray[newIndexPath.row];
+        }
+    }
+    
+}
+
+
+
+#pragma mark - panGestureRecognizer method
 
 
 @end
