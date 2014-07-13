@@ -12,6 +12,7 @@
 @interface ModelController : NSObject<UIPageViewControllerDataSource>
 - (id)initWith:(NSArray*)data;
 - (ColorViewController *)viewControllerAtIndex:(NSUInteger)index storyboard:(UIStoryboard *)storyboard;
+- (ColorViewController *)viewControllerWithIndexPath:(NSIndexPath*)indexPath storyboard:(UIStoryboard *)storyboard;
 - (NSUInteger)indexOfViewController:(ColorViewController *)viewController;
 
 @end

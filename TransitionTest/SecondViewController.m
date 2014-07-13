@@ -89,7 +89,7 @@
     if (UIInterfaceOrientationIsPortrait(orientation) || ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)) {
         // In portrait orientation or on iPhone: Set the spine position to "min" and the page view controller's view controllers array to contain just one view controller. Setting the spine position to 'UIPageViewControllerSpineLocationMid' in landscape orientation sets the doubleSided property to YES, so set it to NO here.
         
-        UIViewController *currentViewController = self.colorViewController.viewControllers[0];
+        ColorViewController *currentViewController = self.colorViewController.viewControllers[0];
         NSArray *viewControllers = @[currentViewController];
         [self.colorViewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
         
@@ -98,11 +98,11 @@
     }
     
     // In landscape orientation: Set set the spine location to "mid" and the page view controller's view controllers array to contain two view controllers. If the current page is even, set it to contain the current and next view controllers; if it is odd, set the array to contain the previous and current view controllers.
-    ColorViewController *currentViewController = self.colorViewController.viewControllers[self.currentCellIndexPath.row];
+    ColorViewController *currentViewController = (ColorViewController*)self.colorViewController.viewControllers[self.currentCellIndexPath.row];
     NSArray *viewControllers = nil;
     
     NSUInteger indexOfCurrentViewController = self.currentCellIndexPath.row;
-    if (indexOfCurrentViewController == 0 || indexOfCurrentViewController % 2 == 0) {
+    if (indexOfCurrentViewController == 0) {
         ColorViewController *nextViewController = [[ColorViewController alloc]init];
         nextViewController.view.backgroundColor = (UIColor*)[self.dataArray objectAtIndex:indexOfCurrentViewController+1];
         nextViewController.indexPath = [NSIndexPath indexPathForRow:self.currentCellIndexPath.row+1 inSection:self.currentCellIndexPath.section];
@@ -121,26 +121,24 @@
 
 - (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed
 {
+
     if (finished&&completed) {
+        ColorViewController *currentVC = (ColorViewController*)[pageViewController.viewControllers firstObject];
+        ColorViewController *previousVC = (ColorViewController*)[previousViewControllers firstObject];
         
-        ColorViewController *previousVC = (ColorViewController*)[previousViewControllers lastObject];
-        
-        ColorViewController *currentVC = (ColorViewController*)[self.colorViewController.viewControllers lastObject];
-        
-        if (currentVC.indexPath.row==previousVC.indexPath.row) {
-            NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:self.currentCellIndexPath.row-1 inSection:self.currentCellIndexPath.section];
+        if (currentVC.indexPath.row>self.currentCellIndexPath.row) {
+            NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:self.currentCellIndexPath.row+1 inSection:self.currentCellIndexPath.section];
             self.currentCellIndexPath = newIndexPath;
             self.view.backgroundColor = (UIColor*)self.dataArray[newIndexPath.row];
         }
-        if (currentVC.indexPath.row<previousVC.indexPath.row) {
-            NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:self.currentCellIndexPath.row+1 inSection:self.currentCellIndexPath.section];
+        if (currentVC.indexPath.row<self.currentCellIndexPath.row) {
+            NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:self.currentCellIndexPath.row-1 inSection:self.currentCellIndexPath.section];
             self.currentCellIndexPath = newIndexPath;
             self.view.backgroundColor = (UIColor*)self.dataArray[newIndexPath.row];
         }
     }
     
 }
-
 
 
 #pragma mark - panGestureRecognizer method

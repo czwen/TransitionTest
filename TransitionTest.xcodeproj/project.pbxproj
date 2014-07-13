@@ -141,6 +141,8 @@
 				948FF531196E801B00A8EA1C /* ViewController.m */,
 				948FF553196E8F9C00A8EA1C /* SecondViewController.h */,
 				948FF554196E8F9C00A8EA1C /* SecondViewController.m */,
+				948C0A451971126700BE482F /* ModelController.h */,
+				948C0A461971126700BE482F /* ModelController.m */,
 				948C0A421971068D00BE482F /* ColorViewController.h */,
 				948C0A431971068D00BE482F /* ColorViewController.m */,
 				948FF550196E847C00A8EA1C /* UIColor+RandomColor.h */,
@@ -151,8 +153,6 @@
 				948FF55D196E92F900A8EA1C /* TransitionFromSecondToFirst.m */,
 				948FF533196E801B00A8EA1C /* Images.xcassets */,
 				948FF522196E801B00A8EA1C /* Supporting Files */,
-				948C0A451971126700BE482F /* ModelController.h */,
-				948C0A461971126700BE482F /* ModelController.m */,
 			);
 			path = TransitionTest;
 			sourceTree = "<group>";

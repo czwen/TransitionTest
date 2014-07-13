@@ -37,7 +37,19 @@
     dataViewController.view.backgroundColor = (UIColor*)self.pageData[index];
     return dataViewController;
 }
-
+- (ColorViewController *)viewControllerWithIndexPath:(NSIndexPath*)indexPath storyboard:(UIStoryboard *)storyboard
+{
+    // Return the data view controller for the given index.
+    if (([self.pageData count] == 0) || (indexPath.row == [self.pageData count])) {
+        return nil;
+    }
+    
+    // Create a new view controller and pass suitable data.
+    ColorViewController *dataViewController = [storyboard instantiateViewControllerWithIdentifier:@"ColorViewController"];
+    dataViewController.view.backgroundColor = (UIColor*)self.pageData[indexPath.row];
+    dataViewController.indexPath = indexPath;
+    return dataViewController;
+}
 - (NSUInteger)indexOfViewController:(ColorViewController *)viewController
 {
     // Return the index of the given data view controller.
@@ -49,29 +61,33 @@
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
 {
+    //to right
     SecondViewController *secondVC = (SecondViewController*)pageViewController.parentViewController;
     NSUInteger index = secondVC.currentCellIndexPath.row;
-    if ((index == 0) || (index == NSNotFound)) {
+    
+    if (index == 0) {
         return nil;
     }
     
     index--;
-    return [self viewControllerAtIndex:index storyboard:viewController.storyboard];
+    //return [self viewControllerAtIndex:index storyboard:viewController.storyboard];
+    return [self viewControllerWithIndexPath:[NSIndexPath indexPathForRow:index inSection:secondVC.currentCellIndexPath.section] storyboard:viewController.storyboard];
 }
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
 {
+    //to left
     SecondViewController *secondVC = (SecondViewController*)pageViewController.parentViewController;
     NSUInteger index = secondVC.currentCellIndexPath.row;
-    if (index == NSNotFound) {
-        return nil;
-    }
     
     index++;
+    
     if (index == [self.pageData count]) {
         return nil;
     }
-    return [self viewControllerAtIndex:index storyboard:viewController.storyboard];
+    //return [self viewControllerAtIndex:index storyboard:viewController.storyboard];
+    return [self viewControllerWithIndexPath:[NSIndexPath indexPathForRow:index inSection:secondVC.currentCellIndexPath.section] storyboard:viewController.storyboard];
+
 }
 
 @end
